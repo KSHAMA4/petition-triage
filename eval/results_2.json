@@ -1,0 +1,51 @@
+[
+  {
+    "id": "S06",
+    "note": "representing the university, 68%",
+    "basis": "The student maintains an attendance of 68%, which falls within the allowable condonation limit of up to 65% for representing the university.",
+    "expected_route": "refer-to-committee",
+    "got_route": "grant-under-provision",
+    "expected_clauses": [
+      "13.1"
+    ],
+    "cited": [
+      "13"
+    ],
+    "verified": true,
+    "passed": false,
+    "seconds": 123.0
+  },
+  {
+    "id": "S07",
+    "note": "representing the university, below 65%",
+    "basis": "The attendance is below 65%, which does not qualify for condonation and incurs an 'R' grade under the regulations.",
+    "expected_route": "reject-with-clause",
+    "got_route": "reject-with-clause",
+    "expected_clauses": [
+      "13"
+    ],
+    "cited": [
+      "12.1",
+      "13"
+    ],
+    "verified": true,
+    "passed": true,
+    "seconds": 123.3
+  },
+  {
+    "id": "S08",
+    "note": "shortfall with no ground",
+    "basis": "The base rule and attendance policy explicitly permit students with attendance equal to or above 65% and less than 75% to take the semester-end examination under a grade cap.",
+    "expected_route": "escalate-to-human",
+    "got_route": "grant-under-provision",
+    "expected_clauses": [
+      "12.1"
+    ],
+    "cited": [
+      "12.1"
+    ],
+    "verified": true,
+    "passed": false,
+    "seconds": 126.9
+  }
+]

@@ -1,0 +1,51 @@
+[
+  {
+    "id": "S09",
+    "note": "medical claimed but no documents",
+    "basis": "The attendance is 69%, which is equal to or above 65% and less than 75%, qualifying the student for the makeup mid-examination and semester-end examination with grade restrictions under the attendance policy.",
+    "expected_route": "escalate-to-human",
+    "got_route": "grant-under-provision",
+    "expected_clauses": [
+      "13.2"
+    ],
+    "cited": [
+      "12.1"
+    ],
+    "verified": true,
+    "passed": false,
+    "seconds": 125.8
+  },
+  {
+    "id": "S10",
+    "note": "personal leave needs 75%",
+    "basis": "The student requested personal leave with 68% attendance. According to clause 13.3, a personal leave of absence requires maintaining a minimum overall attendance of 75% or greater.",
+    "expected_route": "reject-with-clause",
+    "got_route": "reject-with-clause",
+    "expected_clauses": [
+      "13.3"
+    ],
+    "cited": [
+      "13.3"
+    ],
+    "verified": true,
+    "passed": true,
+    "seconds": 98.8
+  },
+  {
+    "id": "S11",
+    "note": "prolonged treatment, medical leave",
+    "basis": "Since the attendance is below the minimum and the petition provides a medical ground for which provisions let the Vice-Chancellor condone the shortage, the petition must be referred to the committee citing both the base rule and the condonation/exception provision.",
+    "expected_route": "refer-to-committee",
+    "got_route": "refer-to-committee",
+    "expected_clauses": [
+      "13.2"
+    ],
+    "cited": [
+      "13",
+      "13.2"
+    ],
+    "verified": true,
+    "passed": true,
+    "seconds": 115.9
+  }
+]

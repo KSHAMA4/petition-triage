@@ -1,0 +1,9 @@
+{
+  "petition_id": "P001",
+  "student_ref": "SYN0001",
+  "petition_type": "attendance",
+  "semester": 3,
+  "attendance_percentage": 68.0,
+  "has_medical_documentation": true,
+  "description": "I was hospitalised during the semester and my attendance is 68 percent. My medical certificate is attached. Please advise whether I can write the exams."
+}

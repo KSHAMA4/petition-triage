@@ -1,0 +1,5 @@
+.venv/
+.env
+index_store/
+quarantine/
+__pycache__/
