@@ -1,0 +1,93 @@
+{
+  "$defs": {
+    "PetitionType": {
+      "enum": [
+        "attendance",
+        "re_evaluation",
+        "re_registration",
+        "medical_leave",
+        "grade_grievance"
+      ],
+      "title": "PetitionType",
+      "type": "string"
+    }
+  },
+  "properties": {
+    "petition_id": {
+      "maxLength": 40,
+      "minLength": 3,
+      "title": "Petition Id",
+      "type": "string"
+    },
+    "student_ref": {
+      "pattern": "^SYN\\d{4}$",
+      "title": "Student Ref",
+      "type": "string"
+    },
+    "petition_type": {
+      "$ref": "#/$defs/PetitionType"
+    },
+    "semester": {
+      "maximum": 8,
+      "minimum": 1,
+      "title": "Semester",
+      "type": "integer"
+    },
+    "regulation_doc": {
+      "default": "r24ug_academic_regulations_version_3.0.pdf",
+      "enum": [
+        "r24ug_academic_regulations_version_3.0.pdf",
+        "regulations_3.1.pdf"
+      ],
+      "title": "Regulation Doc",
+      "type": "string"
+    },
+    "course_code": {
+      "anyOf": [
+        {
+          "maxLength": 15,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Course Code"
+    },
+    "attendance_percentage": {
+      "anyOf": [
+        {
+          "maximum": 100,
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Attendance Percentage"
+    },
+    "has_medical_documentation": {
+      "default": false,
+      "title": "Has Medical Documentation",
+      "type": "boolean"
+    },
+    "description": {
+      "maxLength": 1000,
+      "minLength": 10,
+      "title": "Description",
+      "type": "string"
+    }
+  },
+  "required": [
+    "petition_id",
+    "student_ref",
+    "petition_type",
+    "semester",
+    "description"
+  ],
+  "title": "Petition",
+  "type": "object"
+}
