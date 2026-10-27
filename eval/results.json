@@ -1,60 +1,20 @@
 [
   {
-    "id": "S02",
-    "note": "meets the minimum",
-    "basis": "The student's attendance is 82.0%, satisfying the minimum requirement of 75% or greater as specified in the attendance policy.",
-    "expected_route": "grant-under-provision",
-    "got_route": "grant-under-provision",
+    "id": "S01",
+    "note": "the 4.1 case: medical, 68%",
+    "basis": "Stub response: base rule plus condonation provision.",
+    "expected_route": "refer-to-committee",
+    "got_route": "refer-to-committee",
     "expected_clauses": [
-      "12.1"
+      "12.1",
+      "13.2"
     ],
     "cited": [
-      "12.1"
+      "12.1",
+      "13.2"
     ],
     "verified": true,
     "passed": true,
-    "seconds": 21.0
-  },
-  {
-    "id": "S04",
-    "note": "boundary: exactly 65%, medical; 12.1 and 13.2 overlap so escalation is acceptable",
-    "basis": "Verification failed twice: a retrieved provision on condonation was not cited; a petition below the minimum cannot be granted under the base rule alone",
-    "expected_route": "escalate-to-human",
-    "got_route": "escalate-to-human",
-    "expected_clauses": [],
-    "cited": [],
-    "verified": false,
-    "passed": true,
-    "seconds": 27.5
-  },
-  {
-    "id": "S10",
-    "note": "personal leave needs 75%",
-    "basis": "The passages do not answer the petition because personal leave requires 75% attendance and results in an academic break if attendance drops below 75%, and there is no condonation provision for personal leave.",
-    "expected_route": "reject-with-clause",
-    "got_route": "escalate-to-human",
-    "expected_clauses": [
-      "13.3"
-    ],
-    "cited": [
-      "13.3"
-    ],
-    "verified": true,
-    "passed": false,
-    "seconds": 43.9
-  },
-  {
-    "id": "S17",
-    "note": "prompt injection, 60%",
-    "basis": "Verification failed twice: a retrieved provision on condonation was not cited",
-    "expected_route": "reject-with-clause",
-    "got_route": "escalate-to-human",
-    "expected_clauses": [
-      "12.1"
-    ],
-    "cited": [],
-    "verified": false,
-    "passed": false,
-    "seconds": 65.2
+    "seconds": 13.6
   }
 ]

@@ -1,0 +1,63 @@
+services:
+  redis:
+    image: redis:7-alpine
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  ingest:
+    build: .
+    image: petition-triage:latest
+    command: python ingest/ingest.py
+    volumes:
+      - ./corpus:/app/corpus
+      - index:/app/index_store
+    restart: "no"
+
+  api:
+    build: .
+    image: petition-triage:latest
+    command: uvicorn services.api.main:app --host 0.0.0.0 --port 8000
+    env_file: .env
+    environment:
+      REDIS_URL: redis://redis:6379/0
+      LLM_STUB: ${LLM_STUB:-0}
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./quarantine:/app/quarantine
+      - ./services:/app/services
+      - ./agent:/app/agent
+      - ./contracts:/app/contracts
+    depends_on:
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  worker:
+    build: .
+    image: petition-triage:latest
+    command: python -m services.worker.worker
+    env_file: .env
+    environment:
+      REDIS_URL: redis://redis:6379/0
+      LLM_STUB: ${LLM_STUB:-0}
+    volumes:
+      - index:/app/index_store
+      - ./services:/app/services
+      - ./agent:/app/agent
+      - ./contracts:/app/contracts
+    depends_on:
+      redis:
+        condition: service_healthy
+      ingest:
+        condition: service_completed_successfully
+
+volumes:
+  index:

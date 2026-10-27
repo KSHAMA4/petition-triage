@@ -1,0 +1,9 @@
+.venv
+.env
+.git
+index_store
+quarantine
+corpus
+__pycache__
+runs.json
+eval/results*.json

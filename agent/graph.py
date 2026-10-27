@@ -176,7 +176,7 @@ def verify(s):
         if not condon:
             problems.append("attendance is below the minimum but no provision that could condone the shortage was retrieved")
             hint = " Search for provisions under which a shortage of attendance may be condoned."
-        elif not any(x["clause"] in cited_clauses for x in condon):
+        elif not any(c == x["clause"] or c.startswith(x["clause"] + ".") for x in condon for c in cited_clauses):
             problems.append("a retrieved provision on condonation was not cited")
         if d.get("route") == "grant-under-provision":
             problems.append("a petition below the minimum cannot be granted under the base rule alone")

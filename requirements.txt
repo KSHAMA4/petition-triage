@@ -1,0 +1,11 @@
+pymupdf
+sentence-transformers
+chromadb
+pydantic
+fastapi
+uvicorn
+requests
+python-dotenv
+langgraph
+langchain-core
+redis

@@ -35,8 +35,50 @@ def _one_model(model, prompt, timeout, retries):
             time.sleep(delay)
             delay *= 2
 
+_stub_state = {"step": 0}
+
+
+def _stub(prompt):
+    time.sleep(1)
+    meta = {"model_used": "stub", "promptTokenCount": 0, "candidatesTokenCount": 0}
+    if "Reply with JSON only, one of" in prompt:
+        seen = prompt.split("Retrieved so far:")[1]
+        if "(none yet)" in seen:
+            _stub_state["step"] = 1
+            out = {"action": "search", "query": "minimum overall attendance requirement"}
+        else:
+            _stub_state["step"] += 1
+            have_mod = "vice-chancellor" in seen.lower() and "medical" in seen.lower()
+            if _stub_state["step"] == 2:
+                out = {"action": "search", "query": "condonation of attendance shortage medical emergency"}
+            elif _stub_state["step"] == 3 and not have_mod:
+                out = {"action": "get_clause", "doc": "", "clause": "13.2"}
+            else:
+                out = {"action": "finish"}
+        return json.dumps(out), meta
+    pas = []
+    for line in prompt.split("Passages:")[1].splitlines():
+        m = re.match(r"^\[([^|\]]+)\|([^|\]]+)\|p(\d+)\] (.*)$", line)
+        if m:
+            pas.append({"doc": m.group(1), "clause": m.group(2), "text": m.group(4)})
+    bases = [p for p in pas if "minimum overall attendance" in p["text"].lower()]
+    base = next((p for p in bases if p["clause"] == "12.1"), bases[0] if bases else None)
+    mod = next((p for p in pas if "vice-chancellor" in p["text"].lower() and "medical" in p["text"].lower()), None)
+    if base and mod:
+        out = {"route": "refer-to-committee",
+               "position": "Below the minimum; the Vice-Chancellor may condone on medical grounds.",
+               "basis": "Stub response: base rule plus condonation provision.",
+               "citations": [{"doc": base["doc"], "clause": base["clause"], "quote": base["text"][:150]},
+                             {"doc": mod["doc"], "clause": mod["clause"], "quote": mod["text"][:150]}]}
+    else:
+        out = {"route": "escalate-to-human", "position": "Stub could not find the provisions.",
+               "basis": "Stub response.", "citations": []}
+    return json.dumps(out), meta
+
 
 def call_llm(prompt, timeout=40, retries=2):
+    if os.environ.get("LLM_STUB") == "1":
+        return _stub(prompt)
     last = None
     for model in _models():
         try:
