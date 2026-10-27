@@ -3,3 +3,5 @@
 index_store/
 quarantine/
 __pycache__/
+runs.json
+eval/results*.json
