@@ -8,4 +8,4 @@ requests
 python-dotenv
 langgraph
 langchain-core
-redis
+redislocust>=2.0
