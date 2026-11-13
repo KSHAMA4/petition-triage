@@ -3,6 +3,7 @@ from typing import TypedDict
 from langgraph.graph import StateGraph, END
 from agent.llm import call_llm, parse_json
 from agent import tools
+from agent.guardrails import check_prompt_injection, filter_output
 
 MAX_STEPS = 6
 MAX_TOOL_CALLS = 8
@@ -237,10 +238,25 @@ def build():
 
 def run(petition):
     t0 = time.time()
+    # L4 Guardrail: Check for prompt injection before running any agent logic or tools
+    injected, reason = check_prompt_injection(petition.get("description", ""))
+    if injected:
+        final_decision = {
+            "route": "reject-with-clause",
+            "position": "Petition contains unauthorized control instructions or prompt injection attempts.",
+            "basis": f"Guardrail alert: {reason}",
+            "citations": [],
+            "verified": True,
+            "disclaimer": DISCLAIMER
+        }
+        return {"final": final_decision, "trace": [{"event": "guardrail_blocked", "reason": reason}], "elapsed_s": round(time.time() - t0, 3)}
+
     state = {"petition": petition, "passages": {}, "steps": 0, "tool_calls": 0, "attempts": 0,
              "note": "", "started": t0, "trace": [], "done_research": False}
     try:
         out = build().invoke(state, {"recursion_limit": 40})
+        # L4 Guardrail: Filter model outputs
+        out["final"] = filter_output(out["final"])
     except Exception as e:
         import traceback
         traceback.print_exc()

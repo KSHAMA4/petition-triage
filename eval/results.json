@@ -2,7 +2,7 @@
   {
     "id": "S01",
     "note": "the 4.1 case: medical, 68%",
-    "basis": "Stub response: base rule plus condonation provision.",
+    "basis": "The student's attendance is below the 75% minimum required by 12.1, but 13 and 13.2 allow for the Vice-Chancellor to condone attendance shortages down to 65% in cases of medical emergency.",
     "expected_route": "refer-to-committee",
     "got_route": "refer-to-committee",
     "expected_clauses": [
@@ -11,10 +11,11 @@
     ],
     "cited": [
       "12.1",
+      "13",
       "13.2"
     ],
     "verified": true,
     "passed": true,
-    "seconds": 13.6
+    "seconds": 34.9
   }
 ]

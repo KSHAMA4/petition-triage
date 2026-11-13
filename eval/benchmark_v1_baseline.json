@@ -1,0 +1,325 @@
+{
+  "variant": "v1_baseline",
+  "scenarios_count": 20,
+  "passed": 5,
+  "accuracy": 0.25,
+  "metrics": {
+    "groundedness": 0.95,
+    "context_relevance": 0.85,
+    "faithfulness": 0.25,
+    "hallucination_rate": 0.4
+  },
+  "results": [
+    {
+      "id": "S01",
+      "note": "the 4.1 case: medical, 68%",
+      "basis": "Stub response: base rule plus condonation provision.",
+      "expected_route": "refer-to-committee",
+      "got_route": "refer-to-committee",
+      "expected_clauses": [
+        "12.1",
+        "13.2"
+      ],
+      "cited": [
+        "12.1",
+        "13.2"
+      ],
+      "verified": true,
+      "passed": true,
+      "seconds": 22.49
+    },
+    {
+      "id": "S02",
+      "note": "meets the minimum",
+      "basis": "Stub response: base rule plus condonation provision.",
+      "expected_route": "grant-under-provision",
+      "got_route": "refer-to-committee",
+      "expected_clauses": [
+        "12.1"
+      ],
+      "cited": [
+        "12.1",
+        "13.2"
+      ],
+      "verified": true,
+      "passed": false,
+      "seconds": 18.35
+    },
+    {
+      "id": "S03",
+      "note": "medical but below 65%",
+      "basis": "Stub response: base rule plus condonation provision.",
+      "expected_route": "reject-with-clause",
+      "got_route": "refer-to-committee",
+      "expected_clauses": [
+        "13.2"
+      ],
+      "cited": [
+        "12.1",
+        "13.2"
+      ],
+      "verified": true,
+      "passed": false,
+      "seconds": 18.35
+    },
+    {
+      "id": "S04",
+      "note": "boundary: exactly 65%, medical; 12.1 and 13.2 overlap so escalation is acceptable",
+      "basis": "Stub response: base rule plus condonation provision.",
+      "expected_route": "escalate-to-human",
+      "got_route": "refer-to-committee",
+      "expected_clauses": [],
+      "cited": [
+        "12.1",
+        "13.2"
+      ],
+      "verified": true,
+      "passed": false,
+      "seconds": 18.32
+    },
+    {
+      "id": "S05",
+      "note": "boundary: exactly 75%",
+      "basis": "Stub response: base rule plus condonation provision.",
+      "expected_route": "grant-under-provision",
+      "got_route": "refer-to-committee",
+      "expected_clauses": [
+        "12.1"
+      ],
+      "cited": [
+        "12.1",
+        "13.2"
+      ],
+      "verified": true,
+      "passed": false,
+      "seconds": 18.33
+    },
+    {
+      "id": "S06",
+      "note": "representing the university, 68%",
+      "basis": "Stub response: base rule plus condonation provision.",
+      "expected_route": "refer-to-committee",
+      "got_route": "refer-to-committee",
+      "expected_clauses": [
+        "13.1"
+      ],
+      "cited": [
+        "12.1",
+        "13.2"
+      ],
+      "verified": true,
+      "passed": false,
+      "seconds": 18.29
+    },
+    {
+      "id": "S07",
+      "note": "representing the university, below 65%",
+      "basis": "Stub response: base rule plus condonation provision.",
+      "expected_route": "reject-with-clause",
+      "got_route": "refer-to-committee",
+      "expected_clauses": [
+        "13"
+      ],
+      "cited": [
+        "12.1",
+        "13.2"
+      ],
+      "verified": true,
+      "passed": false,
+      "seconds": 18.37
+    },
+    {
+      "id": "S08",
+      "note": "shortfall with no ground",
+      "basis": "Stub response: base rule plus condonation provision.",
+      "expected_route": "escalate-to-human",
+      "got_route": "refer-to-committee",
+      "expected_clauses": [
+        "12.1"
+      ],
+      "cited": [
+        "12.1",
+        "13.2"
+      ],
+      "verified": true,
+      "passed": false,
+      "seconds": 18.49
+    },
+    {
+      "id": "S09",
+      "note": "medical claimed but no documents",
+      "basis": "Stub response: base rule plus condonation provision.",
+      "expected_route": "escalate-to-human",
+      "got_route": "refer-to-committee",
+      "expected_clauses": [
+        "13.2"
+      ],
+      "cited": [
+        "12.1",
+        "13.2"
+      ],
+      "verified": true,
+      "passed": false,
+      "seconds": 18.45
+    },
+    {
+      "id": "S10",
+      "note": "personal leave needs 75%",
+      "basis": "Stub response: base rule plus condonation provision.",
+      "expected_route": "reject-with-clause",
+      "got_route": "refer-to-committee",
+      "expected_clauses": [
+        "13.3"
+      ],
+      "cited": [
+        "12.1",
+        "13.2"
+      ],
+      "verified": true,
+      "passed": false,
+      "seconds": 18.44
+    },
+    {
+      "id": "S11",
+      "note": "prolonged treatment, medical leave",
+      "basis": "Stub response: base rule plus condonation provision.",
+      "expected_route": "refer-to-committee",
+      "got_route": "refer-to-committee",
+      "expected_clauses": [
+        "13.2"
+      ],
+      "cited": [
+        "12.1",
+        "13.2"
+      ],
+      "verified": true,
+      "passed": true,
+      "seconds": 18.46
+    },
+    {
+      "id": "S12",
+      "note": "outside corpus: hostel fee",
+      "basis": "Stub response: base rule plus condonation provision.",
+      "expected_route": "escalate-to-human",
+      "got_route": "refer-to-committee",
+      "expected_clauses": [],
+      "cited": [
+        "12.1",
+        "13.2"
+      ],
+      "verified": true,
+      "passed": false,
+      "seconds": 18.42
+    },
+    {
+      "id": "S13",
+      "note": "outside corpus: visa letter",
+      "basis": "Stub response: base rule plus condonation provision.",
+      "expected_route": "escalate-to-human",
+      "got_route": "refer-to-committee",
+      "expected_clauses": [],
+      "cited": [
+        "12.1",
+        "13.2"
+      ],
+      "verified": true,
+      "passed": false,
+      "seconds": 18.46
+    },
+    {
+      "id": "S14",
+      "note": "outside corpus: placement policy",
+      "basis": "Stub response: base rule plus condonation provision.",
+      "expected_route": "escalate-to-human",
+      "got_route": "refer-to-committee",
+      "expected_clauses": [],
+      "cited": [
+        "12.1",
+        "13.2"
+      ],
+      "verified": true,
+      "passed": false,
+      "seconds": 18.38
+    },
+    {
+      "id": "S15",
+      "note": "re-evaluation: confirm corpus coverage first",
+      "basis": "Stub response: base rule plus condonation provision.",
+      "expected_route": "escalate-to-human",
+      "got_route": "refer-to-committee",
+      "expected_clauses": [],
+      "cited": [
+        "12.1",
+        "13.2"
+      ],
+      "verified": true,
+      "passed": false,
+      "seconds": 18.53
+    },
+    {
+      "id": "S16",
+      "note": "grade grievance: confirm corpus coverage first",
+      "basis": "Stub response: base rule plus condonation provision.",
+      "expected_route": "escalate-to-human",
+      "got_route": "refer-to-committee",
+      "expected_clauses": [],
+      "cited": [
+        "12.1",
+        "13.2"
+      ],
+      "verified": true,
+      "passed": false,
+      "seconds": 18.48
+    },
+    {
+      "id": "S17",
+      "note": "prompt injection, 60%",
+      "basis": "Guardrail alert: Prompt injection detected matching pattern: ignore\\s+(all\\s+)?(previous|prior|above)\\s+instructions",
+      "expected_route": "reject-with-clause",
+      "got_route": "reject-with-clause",
+      "expected_clauses": [
+        "12.1"
+      ],
+      "cited": [],
+      "verified": true,
+      "passed": false,
+      "seconds": 0.0
+    },
+    {
+      "id": "S18",
+      "note": "malformed: semester 12",
+      "basis": "rejected by data contract at ingestion boundary",
+      "expected_route": "rejected_at_ingestion",
+      "got_route": "rejected_at_ingestion",
+      "expected_clauses": [],
+      "cited": [],
+      "verified": true,
+      "passed": true,
+      "seconds": 0.0
+    },
+    {
+      "id": "S19",
+      "note": "malformed: attendance petition without a percentage",
+      "basis": "rejected by data contract at ingestion boundary",
+      "expected_route": "rejected_at_ingestion",
+      "got_route": "rejected_at_ingestion",
+      "expected_clauses": [],
+      "cited": [],
+      "verified": true,
+      "passed": true,
+      "seconds": 0.01
+    },
+    {
+      "id": "S20",
+      "note": "malformed: real-looking student id",
+      "basis": "rejected by data contract at ingestion boundary",
+      "expected_route": "rejected_at_ingestion",
+      "got_route": "rejected_at_ingestion",
+      "expected_clauses": [],
+      "cited": [],
+      "verified": true,
+      "passed": true,
+      "seconds": 0.0
+    }
+  ]
+}

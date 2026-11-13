@@ -1,6 +1,9 @@
 services:
   redis:
     image: redis:7-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redisdata:/data
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 5s
@@ -11,6 +14,8 @@ services:
     build: .
     image: petition-triage:latest
     command: python ingest/ingest.py
+    environment:
+      HF_HUB_OFFLINE: "1"
     volumes:
       - ./corpus:/app/corpus
       - index:/app/index_store
@@ -23,9 +28,11 @@ services:
     env_file: .env
     environment:
       REDIS_URL: redis://redis:6379/0
+      INTAKE_QUEUE: triage_queue
+      RATE_LIMIT_PER_MIN: ${RATE_LIMIT_PER_MIN:-10}
       LLM_STUB: ${LLM_STUB:-0}
     ports:
-      - "8000:8000"
+      - "8001:8000"
     volumes:
       - ./quarantine:/app/quarantine
       - ./services:/app/services
@@ -48,16 +55,35 @@ services:
     environment:
       REDIS_URL: redis://redis:6379/0
       LLM_STUB: ${LLM_STUB:-0}
+      HF_HUB_OFFLINE: "1"
     volumes:
       - index:/app/index_store
+      - ./services:/app/services
+      - ./agent:/app/agent
+      - ./contracts:/app/contracts
+      - ./eval:/app/eval
+    depends_on:
+      redis:
+        condition: service_healthy
+      ingest:
+        condition: service_completed_successfully
+  triage:
+    build: .
+    image: petition-triage:latest
+    command: python -m services.triage.triage
+    env_file: .env
+    environment:
+      REDIS_URL: redis://redis:6379/0
+      LLM_STUB: ${LLM_STUB:-0}
+    restart: unless-stopped
+    volumes:
       - ./services:/app/services
       - ./agent:/app/agent
       - ./contracts:/app/contracts
     depends_on:
       redis:
         condition: service_healthy
-      ingest:
-        condition: service_completed_successfully
 
 volumes:
   index:
+  redisdata:
